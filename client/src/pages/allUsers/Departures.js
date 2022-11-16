@@ -20,6 +20,7 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import FlightTakeoffTwoToneIcon from '@mui/icons-material/FlightTakeoffTwoTone';
 import Typography from "@mui/material/Typography";
+import api from '../../../axiosConfig';
 
 const Departures = () => {
     const [timeDuration, setTimeDuration] = useState(28800000);
@@ -28,7 +29,7 @@ const Departures = () => {
     const handleChange = (event) => {
         setTimeDuration(event.target.value);
     };
-    const baseURL = process.env.BASE_URL ||"http://localhost:5000";
+    const baseURL = api ||"http://localhost:5000";
 
     useEffect(() => {
         axios.get(baseURL+'/flights/departures/' + timeDuration)

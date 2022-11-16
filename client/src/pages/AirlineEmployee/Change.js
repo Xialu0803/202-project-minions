@@ -13,6 +13,7 @@ import axios from 'axios';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import api from '../../../axiosConfig';
 
 const Change = () => {
     const [flights, setFlights] = React.useState('')
@@ -25,7 +26,7 @@ const Change = () => {
         "departureTime":departureTime,
         "arrivalTime":arrivalTime
     }
-    const baseURL = process.env.BASE_URL ||"http://localhost:5000";
+    const baseURL = api ||"http://localhost:5000";
     const getFlights = () => {
         axios.get(baseURL+'/flights')
             .then((response) => {

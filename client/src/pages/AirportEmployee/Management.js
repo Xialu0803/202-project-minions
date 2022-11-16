@@ -8,13 +8,14 @@ import {useEffect} from 'react';
 import Select from '@mui/material/Select';
 import RoomPreferencesTwoToneIcon from '@mui/icons-material/RoomPreferencesTwoTone';
 import Typography from "@mui/material/Typography";
+import api from '../../../axiosConfig';
 
 
 const Management = () => {
     const [gate, setGate] = React.useState('');
     const [gate_status, setGateStatus] = React.useState('');
     const [gateData, setGateData] = React.useState([]);
-    const baseURL = process.env.BASE_URL ||"http://localhost:5000";
+    const baseURL = api ||"http://localhost:5000";
 
     const getGates = () => {
         axios.get(baseURL+'/gates/all')
