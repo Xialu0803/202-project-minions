@@ -5,8 +5,7 @@
   "engines": {
     "node": "16.13.0"
   },
-  "type": "module",
-  "main": "index.js",
+  "main": "server/index.js",
   "scripts": {
     "test": "npm test",
     "build":"cd client && npm run build",
