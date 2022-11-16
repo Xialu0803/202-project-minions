@@ -20,12 +20,13 @@ import LuggageIcon from '@mui/icons-material/LuggageTwoTone';
 const Baggage = () => {
     const [terminal, setTerminal] = React.useState('');
     const [data, setData] = React.useState([]);
+    const baseURL = process.env.baseURL ||"http://localhost:5000";
 
     const getBaggage = () => {
         const bag_config = {
             headers: {'terminal': terminal}
         }
-        axios.get('http://localhost:5000/baggages/', bag_config)
+        axios.get(baseURL+'/baggages/', bag_config)
             .then((response) => {
                 setData(response.data);
                 console.log(data)
@@ -38,7 +39,7 @@ const Baggage = () => {
     const handleChange = (event) => {
         setTerminal(event.target.value);
     };
-    useEffect(() => getBaggage(), [terminal]);
+    useEffect(() => getBaggage(), [terminal]);//eslint-disable-line
     return (
         <Box
             component="main"

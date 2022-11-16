@@ -22,15 +22,16 @@ import FlightTakeoffTwoToneIcon from '@mui/icons-material/FlightTakeoffTwoTone';
 import Typography from "@mui/material/Typography";
 
 const Departures = () => {
-    const [timeDuration, setTimeDuration] = useState(14400000);
+    const [timeDuration, setTimeDuration] = useState(28800000);
     const [data, setData] = useState([]);
 
     const handleChange = (event) => {
         setTimeDuration(event.target.value);
     };
+    const baseURL = process.env.baseURL ||"http://localhost:5000";
 
     useEffect(() => {
-        axios.get('http://localhost:5000/flights/departures/' + timeDuration)
+        axios.get(baseURL+'/flights/departures/' + timeDuration)
             .then((response) => {
                 setData(response.data);
                 console.log(data)
@@ -38,7 +39,15 @@ const Departures = () => {
             .catch(err => {
                 console.log(err)
             })
-    }, [timeDuration]);
+    }, [timeDuration]);//eslint-disable-line
+
+    const convertTime = (list) => {
+        const date = new Date(list.departureTime)
+        const hour = date.getHours().toString()
+        const minute = date.getMinutes().toString()
+        const minutes = minute.length === 1 ? '0' + minute : minute
+        return hour + ':' + minutes
+    }
 
     return (
         <Box
@@ -88,9 +97,9 @@ const Departures = () => {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {data.map((list, index) => (
+                                    {data.sort((a, b) => a.departureTime - b.departureTime).map((list, index) => (
                                         <TableRow key={index}>
-                                            <TableCell>{new Date(list.departureTime).getHours().toString() + ':' + new Date(list.departureTime).getMinutes().toString()}</TableCell>
+                                            <TableCell>{convertTime(list)}</TableCell>
                                             <TableCell>{list.destination}</TableCell>
                                             <TableCell>{list.flightNo}</TableCell>
                                             <TableCell>{list.terminal}</TableCell>

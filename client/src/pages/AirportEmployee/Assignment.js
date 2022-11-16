@@ -14,8 +14,9 @@ const Assignment = () => {
     const [flightData, setFlightData] = React.useState([]);
     const [gates, setGates] = React.useState('');
     const [gateData, setGateData] = React.useState([]);
+    const baseURL = process.env.baseURL ||"http://localhost:5000";
     const getFlights = () => {
-        axios.get('http://localhost:5000/flights')
+        axios.get(baseURL+'/flights')
             .then((response) => {
                 setFlightData(response.data);
                 console.log(flightData)
@@ -26,7 +27,7 @@ const Assignment = () => {
             })
     }
     const getGates = () => {
-        axios.get('http://localhost:5000/gates')
+        axios.get(baseURL+'/gates')
             .then((response) => {
                 setGateData(response.data);
                 console.log(gateData)
@@ -37,7 +38,7 @@ const Assignment = () => {
             })
     }
     const assignFlight = () => {
-        axios.patch('http://localhost:5000/gates/flightID=' + {flights}, {
+        axios.patch(baseURL+'/gates/flightID=' + {flights}, {
             "flightID": flights,
             "gate": gates
         })
@@ -56,8 +57,8 @@ const Assignment = () => {
         setGates(event.target.value);
     };
 
-    useEffect(() => getFlights(), [flights]);
-    useEffect(() => getGates(), [gates]);
+    useEffect(() => getFlights(), [flights]);//eslint-disable-line
+    useEffect(() => getGates(), [gates]);//eslint-disable-line
     return (
         <Box
             component="main"

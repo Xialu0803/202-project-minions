@@ -1,6 +1,6 @@
 import React from 'react'
 import Grid from '@mui/material/Grid';
-import { Box, Container, Paper, TextField, FormControl, InputLabel, MenuItem, Divider, Button } from "@mui/material";
+import { Box, Container, Paper, FormControl, InputLabel, MenuItem, Button } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
 import MuiDrawer from "@mui/material/Drawer";
 import ViewCarouselIcon from '@mui/icons-material/ViewCarouselTwoTone';
@@ -14,8 +14,9 @@ const Carousel = () => {
     const [flightData, setFlightData] = React.useState([]);
     const [carouselsData, setCarouselsData] = useState([]);
     const [carousel, setCarousel] = useState('');
+    const baseURL = process.env.baseURL ||"http://localhost:5000";
     const getFlights = () => {
-        axios.get('http://localhost:5000/flights//noCarousel')
+        axios.get(baseURL+'/flights//noCarousel')
             .then((response) => {
                 setFlightData(response.data);
                 console.log(flightData)
@@ -29,7 +30,7 @@ const Carousel = () => {
         const carousel_config = {
             headers: { 'flight_id': flight }
         }
-        axios.get('http://localhost:5000/baggages/byFlight', carousel_config)
+        axios.get(baseURL+'/baggages/byFlight', carousel_config)
             .then((response) => {
                 setCarouselsData(response.data);
                 console.log(response.data);
@@ -40,7 +41,7 @@ const Carousel = () => {
             })
     }
     const updateCarousel = () => {
-        axios.patch('http://localhost:5000/baggages/flightID=' + { flight }, {
+        axios.patch(baseURL+'/baggages/flightID=' + { flight }, {
             "flightID": flight,
             "carousel": carousel
         })
@@ -57,8 +58,8 @@ const Carousel = () => {
     const handleChangeFlight = (event) => {
         setFlight(event.target.value);
     };
-    useEffect(() => getFlights(), [flight]);
-    useEffect(() => getCarousels(), [flight]);
+    useEffect(() => getFlights(), [flight]);//eslint-disable-line
+    useEffect(() => getCarousels(), [flight]);//eslint-disable-line
     return (
         <Box
             component="main"

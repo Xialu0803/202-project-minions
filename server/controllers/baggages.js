@@ -4,7 +4,7 @@ import FlightInfo from "../models/flightInfo.js";
 export const listBaggageCarousel = async (req, res) => {
     const terminal = req.headers.terminal;
     try {
-        const baggageCarousel = await BaggageCarousel.find({ terminal: terminal });
+        const baggageCarousel = await BaggageCarousel.find({ terminal: terminal});
         res.status(200).json(baggageCarousel);
     } catch (error) {
         res.status(404).json({ message: error.message });

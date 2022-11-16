@@ -53,6 +53,7 @@ export const listAllFlights = async (req, res) => {
         res.status(404).json({ message: error.message });
     }
 }
+
 export const listFlightsWithNoCarousel = async (req, res) => {
     try {
         const Flights = await FlightInfo.find({ "carousel": "Not Assigned" });
@@ -77,7 +78,7 @@ export const updateFlight = async (req, res) => {
         }
     );
 
-    console.log(updatedInfo)
+    //console.log(updatedInfo)
 
     try {
         const { airline } = await FlightInfo.findOne({ "flightID": id }).select({ "airline": 1, "_id": 0 })
@@ -107,10 +108,10 @@ export const listDepartureFlights = async (req, res) => {
 export const listArrivalFlights = async (req, res) => {
     const destination = 'SFO';
     const currTime = Date.now();
-    const timeDuration = req.params.timeDuration;
+    const timeDuration = Number(req.params.timeDuration);
     try {
         const arrivalFlights = await FlightInfo.find({
-            arrrivalTime: { $gte: currTime, $lte: currTime + timeDuration },
+            arrivalTime: { $gte: currTime, $lte: currTime + timeDuration },
             destination: destination
         });
         res.status(200).json(arrivalFlights);

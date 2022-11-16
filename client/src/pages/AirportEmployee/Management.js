@@ -14,9 +14,10 @@ const Management = () => {
     const [gate, setGate] = React.useState('');
     const [gate_status, setGateStatus] = React.useState('');
     const [gateData, setGateData] = React.useState([]);
+    const baseURL = process.env.baseURL ||"http://localhost:5000";
 
     const getGates = () => {
-        axios.get('http://localhost:5000/gates/all')
+        axios.get(baseURL+'/gates/all')
             .then((response) => {
                 setGateData(response.data);
                 console.log(gateData)
@@ -28,7 +29,7 @@ const Management = () => {
     }
 
     const updateGate = () => {
-        axios.patch('http://localhost:5000/gates/updateGate', {
+        axios.patch(baseURL+'/gates/updateGate', {
             "gate": gate,
             "status": gate_status
         })
@@ -47,7 +48,7 @@ const Management = () => {
         setGateStatus(event.target.value);
     };
 
-    useEffect(() => getGates(), [gate]);
+    useEffect(() => getGates(), [gate]);//eslint-disable-line
     return (
         <Box
             component="main"

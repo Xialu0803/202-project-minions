@@ -15,22 +15,23 @@ import {
 import Toolbar from "@mui/material/Toolbar";
 import MuiDrawer from "@mui/material/Drawer";
 import axios from 'axios';
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import FlightLandTwoToneIcon from '@mui/icons-material/FlightLandTwoTone';
 import Typography from "@mui/material/Typography";
 
-const Departures = () => {
-    const [timeDuration, setTimeDuration] = useState(14400000);
+const Arrivals = () => {
+    const [timeDuration, setTimeDuration] = useState(28800000);
     const [data, setData] = useState([]);
 
     const handleChange = (event) => {
         setTimeDuration(event.target.value);
     };
+    const baseURL = process.env.baseURL ||"http://localhost:5000";
 
     useEffect(() => {
-        axios.get('http://localhost:5000/flights/arrivals/' + timeDuration)
+        axios.get(baseURL+'/flights/arrivals/' + timeDuration)
             .then((response) => {
                 setData(response.data);
                 console.log(data)
@@ -38,7 +39,15 @@ const Departures = () => {
             .catch(err => {
                 console.log(err)
             })
-    }, [timeDuration]);
+    }, [timeDuration]);//eslint-disable-line
+
+    const convertTime = (list) => {
+        const date = new Date(list.arrivalTime)
+        const hour = date.getHours().toString()
+        const minute = date.getMinutes().toString()
+        const minutes = minute.length === 1 ? '0' + minute : minute
+        return hour + ':' + minutes
+    }
 
     return (
         <Box
@@ -53,17 +62,17 @@ const Departures = () => {
                 overflow: 'auto',
             }}
         >
-            <Toolbar/>
-            <MuiDrawer/>
-            <Container maxWidth="xl" sx={{mt: 4, mb: 4}}>
+            <Toolbar />
+            <MuiDrawer />
+            <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
-                        <Paper sx={{p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                            <FlightLandTwoToneIcon sx={{fontSize: 40}}/>
+                        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <FlightLandTwoToneIcon sx={{ fontSize: 40 }} />
                             <Typography component="h1" variant="h5">
                                 Arrival Information
                             </Typography>
-                            <FormControl sx={{mt: 3, mb: 4, width: 300}}>
+                            <FormControl sx={{ mt: 3, mb: 4, width: 300 }}>
                                 <InputLabel id="timeDuration">Time Duration</InputLabel>
                                 <Select
                                     labelId="timeDuration"
@@ -84,17 +93,19 @@ const Departures = () => {
                                         <TableCell>From</TableCell>
                                         <TableCell>Flight NO</TableCell>
                                         <TableCell>Terminal</TableCell>
-                                        <TableCell align="right">Gate</TableCell>
+                                        <TableCell>Gate</TableCell>
+                                        <TableCell align="right">Claim</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {data.map((list, index) => (
+                                    {data.sort((a, b) => a.arrivalTime - b.arrivalTime).map((list, index) => (
                                         <TableRow key={index}>
-                                            <TableCell>{new Date(list.arrivalTime).getHours().toString() + ':' + new Date(list.arrivalTime).getMinutes().toString()}</TableCell>
+                                            <TableCell>{convertTime(list)}</TableCell>
                                             <TableCell>{list.departure}</TableCell>
                                             <TableCell>{list.flightNo}</TableCell>
                                             <TableCell>{list.terminal}</TableCell>
-                                            <TableCell align="right">{list.gate}</TableCell>
+                                            <TableCell>{list.gate}</TableCell>
+                                            <TableCell align="right">{list.carouselNo}</TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>
@@ -107,4 +118,4 @@ const Departures = () => {
     )
 }
 
-export default Departures
+export default Arrivals

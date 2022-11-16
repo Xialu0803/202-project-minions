@@ -3,9 +3,8 @@ import FlightInfo from "../models/flightInfo.js";
 
 export const listAvailbaleGates = async (req, res) => {
     const currTime = Date.now();
-    // console.log(currTime)
     try {
-        const availableGates = await Gate.find({ lastUseTime: { $lt: currTime - 3600000 }, status: "Available" });
+        const availableGates = await Gate.find({ lastUseTime: { $lte: currTime - 3600000 }, status: "Available" });
         res.status(200).json(availableGates);
     } catch (error) {
         res.status(404).json({ message: error.message });

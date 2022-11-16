@@ -20,6 +20,7 @@ const Add = () => {
     const [departureTime, setDepartureTime] = useState('')
     const [arrivalTime, setArrivalTime] = useState('')
     const [airline, setAirline] = useState('')
+    const baseURL = process.env.baseURL ||"http://localhost:5000";
     const flight_config = {
         "flightNo": flightNo,
         "departure": departure,
@@ -29,7 +30,7 @@ const Add = () => {
         "airline": airline
     }
     const createFlight = () => {
-        axios.post('http://localhost:5000/flights', flight_config)
+        axios.post(baseURL+'/flights', flight_config)
             .then(
                 console.log("Create Flight!")
             )

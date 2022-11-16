@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
@@ -8,36 +8,50 @@ import Container from '@mui/material/Container';
 import Toolbar from "@mui/material/Toolbar";
 import MuiDrawer from "@mui/material/Drawer";
 import Grid from "@mui/material/Grid";
-import {Paper} from "@mui/material";
+import { Paper } from "@mui/material";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {
-    const [email, setEmail] = useState("");
+    const [userID, setUserID] = useState("");
     const [password, setPassword] = useState("");
+    const baseURL = process.env.baseURL ||"http://localhost:5000";
 
-    const getEmail = (event) => {
-        setEmail(event.target.value)
-        //console.log({email: event.target.value});
+    const getUserID = (event) => {
+        setUserID(event.target.value)
+        //console.log({useID: event.target.value});
     }
     const getPassword = (event) => {
         setPassword(event.target.value)
         //console.log({password: event.target.value});
     }
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        axios.post()
-            .then(
-                console.log("Login as ")
-            )
+    const navigate = useNavigate();
+
+    //const [data, setData] = useState([]);
+    const handleSubmit = () => {
+        axios.get(baseURL+'/users/' + userID)
+            .then((response) => {
+                const data = response.data
+                //setData(data)
+                if (data.length !== 0 && data[0].userId === userID && data[0].password === password) {
+                    console.log("Login as " + data[0].role)
+                    localStorage.setItem("role", data[0].role)
+                    navigate("/");
+                } else {
+                    console.log("no user")
+                    alert('User not exists or incorrect password!');
+                }
+            })
             .catch(err => {
                 console.log(err)
             })
-
+        /*
         console.log({
-            email_value: email,
+            userID_value: userID,
             password_value: password,
         });
+        */
     };
 
     return (
@@ -53,13 +67,13 @@ export default function SignIn() {
                 overflow: 'auto',
             }}
         >
-            <Toolbar/>
-            <MuiDrawer/>
-            <Container maxWidth="xl" sx={{mt: 4, mb: 4}}>
+            <Toolbar />
+            <MuiDrawer />
+            <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
-                        <Paper sx={{p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                            <LockTwoToneIcon sx={{fontSize: 40}}/>
+                        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <LockTwoToneIcon sx={{ fontSize: 40 }} />
                             <Typography component="h1" variant="h5">
                                 Admin Login
                             </Typography>
@@ -67,14 +81,14 @@ export default function SignIn() {
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="email"
-                                label="Email Address"
-                                name="email"
-                                autoComplete="email"
+                                id="userId"
+                                label="Employee ID"
+                                name="userId"
+                                autoComplete="userID"
                                 autoFocus
-                                sx={{mt: 3, mb: 2, width: 300}}
-                                value={email}
-                                onChange={getEmail}
+                                sx={{ mt: 3, mb: 2, width: 300 }}
+                                value={userID}
+                                onChange={getUserID}
                             />
                             <TextField
                                 margin="normal"
@@ -85,13 +99,13 @@ export default function SignIn() {
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
-                                sx={{mb: 4, width: 300}}
+                                sx={{ mb: 4, width: 300 }}
                                 value={password}
                                 onChange={getPassword}
                             />
                             <Button
                                 variant="contained"
-                                sx={{mb: 2}}
+                                sx={{ mb: 2 }}
                                 onClick={handleSubmit}
                             >
                                 Login

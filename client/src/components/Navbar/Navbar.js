@@ -11,13 +11,12 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
-import HomeIcon from '@mui/icons-material/Home';
-import AirlinesIcon from '@mui/icons-material/Airlines';
-import DomainIcon from '@mui/icons-material/Domain';
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import LogoutIcon from '@mui/icons-material/Logout';
 import {airlineNavberItems, airportNavbarItems, mainNavbarItems} from './consts/navbarItems';
 import {useNavigate} from "react-router-dom";
-import {Button, createTheme, Divider, ThemeProvider} from "@mui/material";
+import {Button, createTheme, ThemeProvider} from "@mui/material";
+
 
 const theme = createTheme({
     palette: {
@@ -28,8 +27,8 @@ const theme = createTheme({
     },
 });
 
-
 const drawerWidth = 260;
+
 
 function Navbar(props) {
     const {window} = props;
@@ -41,27 +40,25 @@ function Navbar(props) {
     const container = window !== undefined ? () => window().document.body : undefined;
 
     const navigate = useNavigate();
+
     const draw = (
         <List>
             <Toolbar sx={{mb: 1}}>
                 <ThemeProvider theme={theme}>
-                    <Button
-                        color="neutral"
-                        variant="contained"
-                        startIcon={<DomainIcon/>}
-                        sx={{mr: 1}}
-                        href="/login"
-                    >
-                        Airport
-                    </Button>
-                    <Button
-                        color="neutral"
-                        variant="contained"
-                        startIcon={<AirlinesIcon/>}
-                        href="/login"
-                    >
-                        AirLine
-                    </Button>
+                    {
+                        localStorage.getItem("role") ?
+                            false
+                             :
+                            <Button
+                                color="neutral"
+                                variant="contained"
+                                startIcon={<SupervisorAccountIcon/>}
+                                sx={{mr: 1}}
+                                onClick={() => navigate('/login')}
+                            >
+                                Employee
+                            </Button>
+                    }
                 </ThemeProvider>
             </Toolbar>
             {mainNavbarItems.map((item, index) => (
@@ -79,38 +76,46 @@ function Navbar(props) {
                     />
                 </ListItem>
             ))}
-            <Divider/>
-            {airportNavbarItems.map((item, index) => (
-                <ListItem
-                    button
-                    key={item.id}
-                    onClick={() => navigate(item.route)}
-                >
-                    <ListItemIcon
-                    >
-                        {item.icon}
-                    </ListItemIcon>
-                    <ListItemText
-                        primary={item.label}
-                    />
-                </ListItem>
-            ))}
-            <Divider/>
-            {airlineNavberItems.map((item, index) => (
-                <ListItem
-                    button
-                    key={item.id}
-                    onClick={() => navigate(item.route)}
-                >
-                    <ListItemIcon
-                    >
-                        {item.icon}
-                    </ListItemIcon>
-                    <ListItemText
-                        primary={item.label}
-                    />
-                </ListItem>
-            ))}
+
+            {
+                localStorage.getItem('role')?
+                    (
+                        localStorage.getItem('role')==='APE' ?
+                            airportNavbarItems.map((item, index) => (
+                                <ListItem
+                                    button
+                                    key={item.id}
+                                    onClick={() => navigate(item.route)}
+                                >
+                                    <ListItemIcon
+                                    >
+                                        {item.icon}
+                                    </ListItemIcon>
+                                    <ListItemText
+                                        primary={item.label}
+                                    />
+                                </ListItem>
+                            ))
+                            :
+                            airlineNavberItems.map((item, index) => (
+                                <ListItem
+                                    button
+                                    key={item.id}
+                                    onClick={() => navigate(item.route)}
+                                >
+                                    <ListItemIcon
+                                    >
+                                        {item.icon}
+                                    </ListItemIcon>
+                                    <ListItemText
+                                        primary={item.label}
+                                    />
+                                </ListItem>
+                            ))
+                    )
+                    :
+                    false
+            }
         </List>
     );
 
@@ -141,23 +146,29 @@ function Navbar(props) {
                         color="inherit"
                         noWrap
                         sx={{flexGrow: 1}}
+                        align="center"
                     >
-                        Flight and Baggage Center
+                        {
+                            localStorage.getItem("role")?
+                                (localStorage.getItem("role")==='APE'?
+                                    "Airport Employee Center"
+                                    :
+                                    "Airline Employee Center")
+                                :
+                                ("Flight and Baggage Center")
+                        }
                     </Typography>
 
-                    <IconButton color="inherit"
-                                sx={{mr: 1}}
-                                href="/"
-                    >
-                        <HomeIcon/>
-                    </IconButton>
-
-                    <IconButton color="inherit"
-                                href="/"
-                    >
-                        <LogoutIcon/>
-                    </IconButton>
-
+                    {
+                        localStorage.getItem("role")?
+                            <IconButton color="inherit"
+                                        onClick={() => {localStorage.removeItem("role"); navigate("/")}}
+                            >
+                                <LogoutIcon/>
+                            </IconButton>
+                            :
+                            false
+                    }
                 </Toolbar>
             </AppBar>
             <Box

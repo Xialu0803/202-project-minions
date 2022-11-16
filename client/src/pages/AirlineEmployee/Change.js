@@ -7,10 +7,9 @@ import MuiDrawer from "@mui/material/Drawer";
 import EditIcon from '@mui/icons-material/EditTwoTone';
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import { useState, useEffect} from 'react';
+import {useEffect} from 'react';
 import Select from '@mui/material/Select';
 import axios from 'axios';
-import dayjs, { Dayjs } from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
@@ -26,9 +25,9 @@ const Change = () => {
         "departureTime":departureTime,
         "arrivalTime":arrivalTime
     }
-    
+    const baseURL = process.env.baseURL ||"http://localhost:5000";
     const getFlights = () => {
-        axios.get('http://localhost:5000/flights')
+        axios.get(baseURL+'/flights')
             .then((response) => {
                 setFlightData(response.data);
                 console.log (flightData)
@@ -39,7 +38,7 @@ const Change = () => {
             })
     }
     const changeFlight = () => {
-        axios.patch('http://localhost:5000/flights/flightID='+{flights},change_config)
+        axios.patch(baseURL+'/flights/flightID='+{flights},change_config)
             .then(
                 console.log("Updated Flight Info!")
             )
@@ -50,7 +49,7 @@ const Change = () => {
     const handleChangeFlight = (event) => {
         setFlights(event.target.value);
     };
-    useEffect (() => getFlights(),[flights]);
+    useEffect (() => getFlights(),[flights]);//eslint-disable-line
     return (
         <Box
             component="main"
