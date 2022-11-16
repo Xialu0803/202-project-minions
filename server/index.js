@@ -12,6 +12,7 @@ import dotenv from "dotenv";
 
 
 const app = express();
+const __dirname = path.resolve();
 
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
