@@ -32,7 +32,7 @@ const Arrivals = () => {
     const baseURL = api || "http://localhost:5000";
 
     useEffect(() => {
-        axios.get('https://minions-airport-202.herokuapp.com//flights/arrivals/' + timeDuration)
+        axios.get(baseURL + '/flights/arrivals/' + timeDuration)
             .then((response) => {
                 setData(response.data);
                 console.log(data)
