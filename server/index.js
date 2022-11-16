@@ -23,7 +23,7 @@ app.use('/gates', gateRoutes);
 app.use('/users', userRoutes);
 
 const CONNECTION_URL = 'mongodb+srv://mern:javascript@cluster0.mrm6pyx.mongodb.net/?retryWrites=true&w=majority';
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.BASE_URL || 5000;
 
 if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {
     app.use(express.static('client/build'));

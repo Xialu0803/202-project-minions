@@ -20,7 +20,7 @@ const Add = () => {
     const [departureTime, setDepartureTime] = useState('')
     const [arrivalTime, setArrivalTime] = useState('')
     const [airline, setAirline] = useState('')
-    const baseURL = process.env.PORT ||"http://localhost:5000";
+    const baseURL = process.env.BASE_URL ||"http://localhost:5000";
     const flight_config = {
         "flightNo": flightNo,
         "departure": departure,

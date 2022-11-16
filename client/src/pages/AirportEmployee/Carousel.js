@@ -14,7 +14,7 @@ const Carousel = () => {
     const [flightData, setFlightData] = React.useState([]);
     const [carouselsData, setCarouselsData] = useState([]);
     const [carousel, setCarousel] = useState('');
-    const baseURL = process.env.PORT ||"http://localhost:5000";
+    const baseURL = process.env.BASE_URL ||"http://localhost:5000";
     const getFlights = () => {
         axios.get(baseURL+'/flights//noCarousel')
             .then((response) => {
