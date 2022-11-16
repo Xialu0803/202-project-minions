@@ -25,7 +25,7 @@ const Change = () => {
         "departureTime":departureTime,
         "arrivalTime":arrivalTime
     }
-    const baseURL = process.env.baseURL ||"http://localhost:5000";
+    const baseURL = process.env.PORT ||"http://localhost:5000";
     const getFlights = () => {
         axios.get(baseURL+'/flights')
             .then((response) => {

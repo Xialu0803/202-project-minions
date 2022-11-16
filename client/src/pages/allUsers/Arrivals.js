@@ -28,7 +28,7 @@ const Arrivals = () => {
     const handleChange = (event) => {
         setTimeDuration(event.target.value);
     };
-    const baseURL = process.env.baseURL ||"http://localhost:5000";
+    const baseURL = process.env.PORT||"http://localhost:5000";
 
     useEffect(() => {
         axios.get(baseURL+'/flights/arrivals/' + timeDuration)

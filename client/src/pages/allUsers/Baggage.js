@@ -20,7 +20,7 @@ import LuggageIcon from '@mui/icons-material/LuggageTwoTone';
 const Baggage = () => {
     const [terminal, setTerminal] = React.useState('');
     const [data, setData] = React.useState([]);
-    const baseURL = process.env.baseURL ||"http://localhost:5000";
+    const baseURL = process.env.PORT ||"http://localhost:5000";
 
     const getBaggage = () => {
         const bag_config = {

@@ -14,7 +14,7 @@ const Assignment = () => {
     const [flightData, setFlightData] = React.useState([]);
     const [gates, setGates] = React.useState('');
     const [gateData, setGateData] = React.useState([]);
-    const baseURL = process.env.baseURL ||"http://localhost:5000";
+    const baseURL = process.env.PORT ||"http://localhost:5000";
     const getFlights = () => {
         axios.get(baseURL+'/flights')
             .then((response) => {

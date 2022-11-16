@@ -14,7 +14,7 @@ const Management = () => {
     const [gate, setGate] = React.useState('');
     const [gate_status, setGateStatus] = React.useState('');
     const [gateData, setGateData] = React.useState([]);
-    const baseURL = process.env.baseURL ||"http://localhost:5000";
+    const baseURL = process.env.PORT ||"http://localhost:5000";
 
     const getGates = () => {
         axios.get(baseURL+'/gates/all')
