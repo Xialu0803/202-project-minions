@@ -2,6 +2,9 @@
   "name": "202-project-minions",
   "version": "1.0.0",
   "description": "https://docs.google.com/spreadsheets/d/1lZoEsoroYPZCjyOl1dUuCdAVNN_gpRtL5qCBEIrvbNQ/edit#gid=0\r ### Two XP Core Values we Chose:\r - Communication:\r Have schedule two meetings per week to let everyone update their status. Discuss on common issues. And have a group chat so we can keep communicating daily.\r - Courage:\r objectively evaluate our own results without making excuses and are always ready to respond to changes.",
+  "engines": {
+    "node": "16.13.0"
+  },
   "main": "index.js",
   "scripts": {
     "test": "npm test",
