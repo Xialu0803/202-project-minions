@@ -15,13 +15,13 @@ import {
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import LuggageIcon from '@mui/icons-material/LuggageTwoTone';
-import api from '../../axiosConfig';
+import Api from '../../axiosConfig';
 
 
 const Baggage = () => {
     const [terminal, setTerminal] = React.useState('');
     const [data, setData] = React.useState([]);
-    const baseURL = api || "http://localhost:5000";
+    const baseURL = Api || "http://localhost:5000";
 
     const getBaggage = () => {
         const bag_config = {

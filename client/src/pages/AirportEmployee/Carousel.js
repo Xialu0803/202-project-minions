@@ -8,13 +8,13 @@ import Typography from "@mui/material/Typography";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Select from '@mui/material/Select';
-import api from '../../axiosConfig';
+import Api from '../../axiosConfig';
 const Carousel = () => {
     const [flight, setFlight] = useState('');
     const [flightData, setFlightData] = React.useState([]);
     const [carouselsData, setCarouselsData] = useState([]);
     const [carousel, setCarousel] = useState('');
-    const baseURL = api || "http://localhost:5000";
+    const baseURL = Api || "http://localhost:5000";
     const getFlights = () => {
         axios.get(baseURL + '/flights//noCarousel')
             .then((response) => {

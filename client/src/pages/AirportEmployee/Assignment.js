@@ -8,14 +8,14 @@ import { useEffect } from 'react';
 import Select from '@mui/material/Select';
 import AssignmentIcon from '@mui/icons-material/AssignmentTwoTone';
 import Typography from "@mui/material/Typography";
-import api from '../../axiosConfig';
+import Api from '../../axiosConfig';
 
 const Assignment = () => {
     const [flights, setFlights] = React.useState('');
     const [flightData, setFlightData] = React.useState([]);
     const [gates, setGates] = React.useState('');
     const [gateData, setGateData] = React.useState([]);
-    const baseURL = api || "http://localhost:5000";
+    const baseURL = Api || "http://localhost:5000";
     const getFlights = () => {
         axios.get(baseURL + '/flights')
             .then((response) => {

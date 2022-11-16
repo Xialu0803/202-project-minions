@@ -11,12 +11,12 @@ import Grid from "@mui/material/Grid";
 import { Paper } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import api from '../axiosConfig';
+import Api from '../axiosConfig';
 
 export default function SignIn() {
     const [userID, setUserID] = useState("");
     const [password, setPassword] = useState("");
-    const baseURL = api||"http://localhost:5000";
+    const baseURL = Api||"http://localhost:5000";
 
     const getUserID = (event) => {
         setUserID(event.target.value)
