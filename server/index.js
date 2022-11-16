@@ -12,7 +12,7 @@ import userRoutes from './routes/users.js';
 
 
 const app = express();
-const __dirname = path.resolve();
+//const __dirname = path.resolve();
 
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
