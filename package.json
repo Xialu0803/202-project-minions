@@ -1,0 +1,19 @@
+{
+  "name": "team-project-minions",
+  "version": "1.0.0",
+  "description": "https://docs.google.com/spreadsheets/d/1lZoEsoroYPZCjyOl1dUuCdAVNN_gpRtL5qCBEIrvbNQ/edit#gid=0\r ### Two XP Core Values we Chose:\r - Communication:\r Have schedule two meetings per week to let everyone update their status. Discuss on common issues. And have a group chat so we can keep communicating daily.\r - Courage:\r objectively evaluate our own results without making excuses and are always ready to respond to changes.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gopinathsjsu/team-project-minions.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gopinathsjsu/team-project-minions/issues"
+  },
+  "homepage": "https://github.com/gopinathsjsu/team-project-minions#readme"
+}
