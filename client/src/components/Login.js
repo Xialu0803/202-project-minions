@@ -11,7 +11,7 @@ import Grid from "@mui/material/Grid";
 import { Paper } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import api from '../../../axiosConfig';
+import api from '../axiosConfig';
 
 export default function SignIn() {
     const [userID, setUserID] = useState("");

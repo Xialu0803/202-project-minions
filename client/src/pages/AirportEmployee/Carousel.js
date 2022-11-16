@@ -8,16 +8,15 @@ import Typography from "@mui/material/Typography";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Select from '@mui/material/Select';
-import api from '../../../axiosConfig';
-
+import api from '../../axiosConfig';
 const Carousel = () => {
     const [flight, setFlight] = useState('');
     const [flightData, setFlightData] = React.useState([]);
     const [carouselsData, setCarouselsData] = useState([]);
     const [carousel, setCarousel] = useState('');
-    const baseURL = api ||"http://localhost:5000";
+    const baseURL = api || "http://localhost:5000";
     const getFlights = () => {
-        axios.get(baseURL+'/flights//noCarousel')
+        axios.get(baseURL + '/flights//noCarousel')
             .then((response) => {
                 setFlightData(response.data);
                 console.log(flightData)
@@ -31,7 +30,7 @@ const Carousel = () => {
         const carousel_config = {
             headers: { 'flight_id': flight }
         }
-        axios.get(baseURL+'/baggages/byFlight', carousel_config)
+        axios.get(baseURL + '/baggages/byFlight', carousel_config)
             .then((response) => {
                 setCarouselsData(response.data);
                 console.log(response.data);
@@ -42,7 +41,7 @@ const Carousel = () => {
             })
     }
     const updateCarousel = () => {
-        axios.patch(baseURL+'/baggages/flightID=' + { flight }, {
+        axios.patch(baseURL + '/baggages/flightID=' + { flight }, {
             "flightID": flight,
             "carousel": carousel
         })

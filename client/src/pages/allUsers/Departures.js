@@ -20,7 +20,7 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import FlightTakeoffTwoToneIcon from '@mui/icons-material/FlightTakeoffTwoTone';
 import Typography from "@mui/material/Typography";
-import api from '../../../axiosConfig';
+import api from '../../axiosConfig';
 
 const Departures = () => {
     const [timeDuration, setTimeDuration] = useState(28800000);

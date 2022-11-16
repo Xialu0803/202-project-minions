@@ -1,10 +1,10 @@
 import React from 'react'
 import Grid from '@mui/material/Grid';
-import {Box, Container, Paper, FormControl, InputLabel, MenuItem} from "@mui/material";
+import { Box, Container, Paper, FormControl, InputLabel, MenuItem } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
 import MuiDrawer from "@mui/material/Drawer";
 import axios from 'axios';
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 import Select from '@mui/material/Select';
 import {
     Table,
@@ -15,19 +15,19 @@ import {
 } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import LuggageIcon from '@mui/icons-material/LuggageTwoTone';
-import api from '../../../axiosConfig';
+import api from '../../axiosConfig';
 
 
 const Baggage = () => {
     const [terminal, setTerminal] = React.useState('');
     const [data, setData] = React.useState([]);
-    const baseURL = api ||"http://localhost:5000";
+    const baseURL = api || "http://localhost:5000";
 
     const getBaggage = () => {
         const bag_config = {
-            headers: {'terminal': terminal}
+            headers: { 'terminal': terminal }
         }
-        axios.get(baseURL+'/baggages/', bag_config)
+        axios.get(baseURL + '/baggages/', bag_config)
             .then((response) => {
                 setData(response.data);
                 console.log(data)
@@ -54,17 +54,17 @@ const Baggage = () => {
                 overflow: 'auto',
             }}
         >
-            <Toolbar/>
-            <MuiDrawer/>
-            <Container maxWidth="xl" sx={{mt: 4, mb: 4}}>
+            <Toolbar />
+            <MuiDrawer />
+            <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
-                        <Paper sx={{p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                            <LuggageIcon sx={{fontSize: 40}}/>
+                        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <LuggageIcon sx={{ fontSize: 40 }} />
                             <Typography component="h1" variant="h5">
                                 Baggage Claim
                             </Typography>
-                            <FormControl sx={{mt: 3, mb: 4, width: 300}}>
+                            <FormControl sx={{ mt: 3, mb: 4, width: 300 }}>
                                 <InputLabel id="terminal">Terminal</InputLabel>
                                 <Select
                                     labelId="terminal"

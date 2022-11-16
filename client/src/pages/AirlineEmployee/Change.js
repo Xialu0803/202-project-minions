@@ -1,56 +1,56 @@
 import React from 'react'
 import Grid from '@mui/material/Grid';
-import {Box, Button, Container, Paper, Stack,FormControl} from "@mui/material";
-import {InputLabel,MenuItem} from "@mui/material";
+import { Box, Button, Container, Paper, Stack, FormControl } from "@mui/material";
+import { InputLabel, MenuItem } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
 import MuiDrawer from "@mui/material/Drawer";
 import EditIcon from '@mui/icons-material/EditTwoTone';
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 import Select from '@mui/material/Select';
 import axios from 'axios';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import api from '../../../axiosConfig';
+import api from '../../axiosConfig';
 
 const Change = () => {
     const [flights, setFlights] = React.useState('')
-    const [flightData,setFlightData] =React.useState([]);
-    const[departureTime,setDepartureTime] = React.useState('')
-    const[arrivalTime,setArrivalTime] = React.useState('')
+    const [flightData, setFlightData] = React.useState([]);
+    const [departureTime, setDepartureTime] = React.useState('')
+    const [arrivalTime, setArrivalTime] = React.useState('')
 
     const change_config = {
-        "flightID":flights,
-        "departureTime":departureTime,
-        "arrivalTime":arrivalTime
+        "flightID": flights,
+        "departureTime": departureTime,
+        "arrivalTime": arrivalTime
     }
-    const baseURL = api ||"http://localhost:5000";
+    const baseURL = api || "http://localhost:5000";
     const getFlights = () => {
-        axios.get(baseURL+'/flights')
+        axios.get(baseURL + '/flights')
             .then((response) => {
                 setFlightData(response.data);
-                console.log (flightData)
+                console.log(flightData)
                 console.log('get flights info')
             })
-            .catch(err =>  { 
+            .catch(err => {
                 console.log(err)
             })
     }
     const changeFlight = () => {
-        axios.patch(baseURL+'/flights/flightID='+{flights},change_config)
+        axios.patch(baseURL + '/flights/flightID=' + { flights }, change_config)
             .then(
                 console.log("Updated Flight Info!")
             )
-            .catch(err =>  { 
+            .catch(err => {
                 console.log(err)
             })
     }
     const handleChangeFlight = (event) => {
         setFlights(event.target.value);
     };
-    useEffect (() => getFlights(),[flights]);//eslint-disable-line
+    useEffect(() => getFlights(), [flights]);//eslint-disable-line
     return (
         <Box
             component="main"
@@ -64,56 +64,59 @@ const Change = () => {
                 overflow: 'auto',
             }}
         >
-            <Toolbar/>
-            <MuiDrawer/>
-            <Container maxWidth="xl" sx={{mt: 4, mb: 4}}>
+            <Toolbar />
+            <MuiDrawer />
+            <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
-                        <Paper sx={{p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                            <EditIcon sx={{fontSize: 40}}/>
+                        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <EditIcon sx={{ fontSize: 40 }} />
                             <Typography component="h1" variant="h5">
                                 Information Edit
                             </Typography>
-                            <Box sx={{mt: 3, mb: 4, width: 300}}>
+                            <Box sx={{ mt: 3, mb: 4, width: 300 }}>
                                 <Stack spacing={2}>
-                                <FormControl sx={{ mt: 3, width: 300 }}>
-                                <InputLabel id="flight">Select the Flight</InputLabel>
-                                    <Select
-                                    labelId="flights"
-                                    id="flights"
-                                    value={flights}
-                                    label="Flights"
-                                    onChange={handleChangeFlight}
-                                    >
-                                    {flightData.map((list,index) =>(
-                                        <MenuItem value={list.flightID}>{list.flightID}</MenuItem>
-                                    ))}
-                                    </Select>
-                                </FormControl>
-                                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                    <DateTimePicker
-                                    renderInput={(props) => <TextField {...props} />}
-                                    label="DateTimePicker"
-                                    value={departureTime}
-                                    outputFormat="MM/dd/yyyy"
-                                    onChange={(newValue) => {
-                                    setDepartureTime(newValue);}}/>
-                                </LocalizationProvider>
-                                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                    <DateTimePicker
-                                    renderInput={(props) => <TextField {...props} />}
-                                    label="DateTimePicker"
-                                    value={arrivalTime}
-                                    onChange={(newValue) => {
-                                    setArrivalTime(newValue);}}/>
-                                </LocalizationProvider>
+                                    <FormControl sx={{ mt: 3, width: 300 }}>
+                                        <InputLabel id="flight">Select the Flight</InputLabel>
+                                        <Select
+                                            labelId="flights"
+                                            id="flights"
+                                            value={flights}
+                                            label="Flights"
+                                            onChange={handleChangeFlight}
+                                        >
+                                            {flightData.map((list, index) => (
+                                                <MenuItem value={list.flightID}>{list.flightID}</MenuItem>
+                                            ))}
+                                        </Select>
+                                    </FormControl>
+                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                        <DateTimePicker
+                                            renderInput={(props) => <TextField {...props} />}
+                                            label="DateTimePicker"
+                                            value={departureTime}
+                                            outputFormat="MM/dd/yyyy"
+                                            onChange={(newValue) => {
+                                                setDepartureTime(newValue);
+                                            }} />
+                                    </LocalizationProvider>
+                                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                        <DateTimePicker
+                                            renderInput={(props) => <TextField {...props} />}
+                                            label="DateTimePicker"
+                                            value={arrivalTime}
+                                            onChange={(newValue) => {
+                                                setArrivalTime(newValue);
+                                            }} />
+                                    </LocalizationProvider>
                                 </Stack>
                             </Box>
                             <Button variant="contained" onClick={() => {
-                                changeFlight ();
-                                alert('Change Flight Info Successfully!');}}
+                                changeFlight();
+                                alert('Change Flight Info Successfully!');
+                            }}
                                 sx={{ mb: 2, width: 300 }}>
-                                     Change Flight Info
+                                Change Flight Info
                             </Button>
                         </Paper>
                     </Grid>

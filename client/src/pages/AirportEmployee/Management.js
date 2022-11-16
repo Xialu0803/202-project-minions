@@ -1,24 +1,24 @@
 import React from 'react'
 import Grid from '@mui/material/Grid';
-import {Box, Container, Paper, FormControl, InputLabel, MenuItem, Button} from "@mui/material";
+import { Box, Container, Paper, FormControl, InputLabel, MenuItem, Button } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
 import MuiDrawer from "@mui/material/Drawer";
 import axios from 'axios';
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 import Select from '@mui/material/Select';
 import RoomPreferencesTwoToneIcon from '@mui/icons-material/RoomPreferencesTwoTone';
 import Typography from "@mui/material/Typography";
-import api from '../../../axiosConfig';
+import api from '../../axiosConfig';
 
 
 const Management = () => {
     const [gate, setGate] = React.useState('');
     const [gate_status, setGateStatus] = React.useState('');
     const [gateData, setGateData] = React.useState([]);
-    const baseURL = api ||"http://localhost:5000";
+    const baseURL = api || "http://localhost:5000";
 
     const getGates = () => {
-        axios.get(baseURL+'/gates/all')
+        axios.get(baseURL + '/gates/all')
             .then((response) => {
                 setGateData(response.data);
                 console.log(gateData)
@@ -30,7 +30,7 @@ const Management = () => {
     }
 
     const updateGate = () => {
-        axios.patch(baseURL+'/gates/updateGate', {
+        axios.patch(baseURL + '/gates/updateGate', {
             "gate": gate,
             "status": gate_status
         })
@@ -63,17 +63,17 @@ const Management = () => {
                 overflow: 'auto',
             }}
         >
-            <Toolbar/>
-            <MuiDrawer/>
-            <Container maxWidth="xl" sx={{mt: 4, mb: 4}}>
+            <Toolbar />
+            <MuiDrawer />
+            <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
-                        <Paper sx={{p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                            <RoomPreferencesTwoToneIcon sx={{fontSize: 40}}/>
+                        <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <RoomPreferencesTwoToneIcon sx={{ fontSize: 40 }} />
                             <Typography component="h1" variant="h5">
                                 Gate Management
                             </Typography>
-                            <FormControl sx={{mt: 3, mb: 4, width: 300}}>
+                            <FormControl sx={{ mt: 3, mb: 4, width: 300 }}>
                                 <InputLabel id="gate-select-label">Select the Gate</InputLabel>
                                 <Select
                                     labelId="gate-select-label"
@@ -87,7 +87,7 @@ const Management = () => {
                                     ))}
                                 </Select>
                             </FormControl>
-                            <FormControl sx={{mb: 4, width: 300}}>
+                            <FormControl sx={{ mb: 4, width: 300 }}>
                                 <InputLabel id="status-select-label">Select Status</InputLabel>
                                 <Select
                                     labelId="status-select-label"
@@ -104,7 +104,7 @@ const Management = () => {
                             <Button variant="contained" onClick={() => {
                                 updateGate();
                                 alert('update Gate Status');
-                            }} sx={{mb: 2}}>
+                            }} sx={{ mb: 2 }}>
                                 Submit Change
                             </Button>
                         </Paper>
