@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
+import path from 'path';
 
 import flightRoutes from './routes/flights.js';
 import baggageRoutes from './routes/baggages.js';
